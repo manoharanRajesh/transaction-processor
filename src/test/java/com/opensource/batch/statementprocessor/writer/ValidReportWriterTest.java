@@ -15,12 +15,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-@DisplayName("Unit test for report writer")
+@DisplayName("Unit test for report writer of successful transactions")
 class ValidReportWriterTest {
     @Mock
     LineAggregator lineAggregatorMock;
@@ -58,7 +57,7 @@ class ValidReportWriterTest {
     }
 
     @Test
-    @DisplayName("When both sucess and error transaction are present then only success is written filtered. ")
+    @DisplayName("When both success and error transaction are present then only success is written filtered. ")
     void test_both_transaction() {
         when(this.lineAggregatorMock.aggregate(any())).thenReturn("Record");
         List<TransactionDetails> validTransactions = Lists.newArrayList(

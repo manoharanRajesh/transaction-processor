@@ -42,6 +42,7 @@ class ValidateEndBalanceProcessorTest {
                 .endBalance(EndBal).build();
 
         TransactionDetails actual = processor.process(td);
+
         assertSame(isaValidTransaction, actual.isWrongEndBalance(), "End balance validation is wrong.");
     }
 
