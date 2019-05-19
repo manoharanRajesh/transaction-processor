@@ -47,14 +47,14 @@ class IdentifyDuplicateTransactionDetailsProcessorTest {
                 () -> assertFalse(lst.get(0).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(0)),
                 () -> assertFalse(lst.get(1).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(1)),
                 () -> assertFalse(lst.get(2).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(2)),
-                () -> assertFalse(lst.get(3).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(3)),
+                () -> assertTrue(lst.get(3).isDuplicate(), "Expect duplicate indicate should be true for " + lst.get(3)),
                 () -> assertFalse(lst.get(4).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(4)),
                 () -> assertFalse(lst.get(5).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(5)),
                 () -> assertFalse(lst.get(6).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(6)),
                 () -> assertTrue(lst.get(7).isDuplicate(), "Expect duplicate indicate should be true for " + lst.get(7)),
                 () -> assertTrue(lst.get(8).isDuplicate(), "Expect duplicate indicate should be true for " + lst.get(8)),
                 () -> assertTrue(lst.get(9).isDuplicate(), "Expect duplicate indicate should be true for " + lst.get(9)),
-                () -> assertFalse(lst.get(10).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(10)),
+                () -> assertTrue(lst.get(10).isDuplicate(), "Expect duplicate indicate should be true for " + lst.get(10)),
                 () -> assertFalse(lst.get(11).isDuplicate(), "Expect duplicate indicate should be false for " + lst.get(11))
         );
     }

@@ -18,6 +18,9 @@ public class IdentifyDuplicateTransactionDetailsProcessor implements ItemProcess
         log.debug("Converting ({})", transactionDetails);
         if (StringUtils.isBlank(transactionDetails.getReferenceId())) {
             log.error("In valid reference ID {}", transactionDetails);
+            transactionDetails.setErrorDescription("InValid transaction reference ID");
+            transactionDetails.setDuplicate(true);
+            return transactionDetails;
         }
         if (isRecordExists(transactionDetails)) {
             transactionDetails.setDuplicate(true);
