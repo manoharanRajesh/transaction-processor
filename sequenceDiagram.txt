@@ -1,0 +1,10 @@
+@startuml
+node "Statement processor spring batch " {
+    InputFiles --> [Reader]
+    [Reader] - [SkipTransactionOnErrors]
+    [SkipTransactionOnErrors] - [ValidateEndBalance]
+    [ValidateEndBalance] - [IdentifyDuplicates]
+    [IdentifyDuplicates] - [Writer]
+    [Writer] --> CSVReport
+}
+@enduml
