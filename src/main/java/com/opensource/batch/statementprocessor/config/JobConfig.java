@@ -57,7 +57,6 @@ public class JobConfig {
         MultiResourceItemReader<TransactionDetails> resourceItemReader = new MultiResourceItemReader<TransactionDetails>();
         resourceItemReader.setResources(fileConfig.getCsvFiles());
         resourceItemReader.setDelegate(csvFileReader());
-
         return resourceItemReader;
     }
     @Bean
@@ -72,7 +71,6 @@ public class JobConfig {
     public FlatFileItemReader<TransactionDetails> csvFileReader() {
         return new FlatFileItemReaderBuilder<TransactionDetails>()
                 .name("csvItemReader")
-                .resource(new ClassPathResource(fileConfig.getCsvFile()))
                 .delimited()
                 .names(new String[]{"Reference", "AccountNumber", "Description", "Start Balance", "Mutation", "End Balance"})
                 .linesToSkip(1)
@@ -86,7 +84,6 @@ public class JobConfig {
     @Bean
     public StaxEventItemReader<TransactionDetails> xmlFileItemReader() {
         StaxEventItemReader<TransactionDetails> xmlFileReader = new StaxEventItemReader<>();
-        xmlFileReader.setResource(new ClassPathResource(fileConfig.getXmlFile()));
         xmlFileReader.setFragmentRootElementName("record");
 
         Jaxb2Marshaller studentMarshaller = new Jaxb2Marshaller();

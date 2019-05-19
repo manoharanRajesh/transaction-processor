@@ -8,10 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class FileConfig {
-    @Value("${csv.transaction.detail.file:csv/records.csv}")
-    private String csvFile;
-    @Value("${xml.transaction.detail.file:xml/records.xml}")
-    private String xmlFile;
 
     @Value("${csv.transaction.detail.multiple.files:csv/records*.csv}")
     private Resource[] csvFiles;
