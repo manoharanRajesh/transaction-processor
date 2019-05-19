@@ -41,3 +41,6 @@ To change report file path.
 To change report file path.
   * **Example**: `report.valid.transaction.detail.file=reports/validTransactionReport.csv`
   * **Default**: `report.valid.transaction.detail.file=reports/validTransactionReport.csv`
+
+## Sample
+sample out are placed on the folder. `./sample/`
