@@ -19,6 +19,7 @@ public class ValidateEndBalanceProcessor implements ItemProcessor<TransactionDet
     public TransactionDetails process(final TransactionDetails transactionDetails) {
         if (transactionDetails.getEndBalance() == null || transactionDetails.getStartBalance() == null || transactionDetails.getMutation() == null) {
             log.error("Expect start,mutation and end value to be valid. check transaction {}", transactionDetails.getReferenceId());
+            transactionDetails.setErrorDescription("Error in start balance, mutation and end balance one the field is invalid.");
             transactionDetails.setWrongEndBalance(Boolean.TRUE);
             return transactionDetails;
         }
