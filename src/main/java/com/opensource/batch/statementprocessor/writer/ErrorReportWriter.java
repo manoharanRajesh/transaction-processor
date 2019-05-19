@@ -1,6 +1,7 @@
 package com.opensource.batch.statementprocessor.writer;
 
 import com.opensource.batch.statementprocessor.vo.TransactionDetails;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 
 import java.util.List;
@@ -10,13 +11,16 @@ public class ErrorReportWriter extends FlatFileItemWriter<TransactionDetails> {
 
     @Override
     public String doWrite(final List<? extends TransactionDetails> items) {
+        items.stream().forEach(item ->{
+            StringBuilder errorDescription = new StringBuilder();
+            errorDescription.append(StringUtils.defaultIfEmpty(item.getErrorDescription(),""));
+            if(item.isDuplicate()) { errorDescription.append("Duplication Transaction.");}
+            if(item.isWrongEndBalance()) { errorDescription.append("Wrong end balance.");}
+            item.setErrorDescription(errorDescription.toString());
+        });
         return items.stream()
                 .filter(item -> item.isDuplicate() || item.isWrongEndBalance())
                 .map(item -> this.lineAggregator.aggregate(item) + this.lineSeparator)
-                .map(item -> {
-                    System.out.println(item);
-                    return item;
-                })
                 .collect(Collectors.joining());
     }
 }

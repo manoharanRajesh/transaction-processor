@@ -196,17 +196,15 @@ public class JobConfig {
 
     private LineAggregator<TransactionDetails> createLineAggregator() {
         DelimitedLineAggregator<TransactionDetails> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(";");
-
+        lineAggregator.setDelimiter(",");
         FieldExtractor<TransactionDetails> fieldExtractor = createFieldExtractor();
         lineAggregator.setFieldExtractor(fieldExtractor);
-
         return lineAggregator;
     }
 
     private FieldExtractor<TransactionDetails> createFieldExtractor() {
         BeanWrapperFieldExtractor<TransactionDetails> extractor = new BeanWrapperFieldExtractor<>();
-        extractor.setNames(new String[]{"accountNumber", "referenceId", "description", "startBalance", "endBalance", "mutation"});
+        extractor.setNames(new String[]{"accountNumber", "referenceId", "description", "startBalance", "endBalance", "mutation","errorDescription"});
         return extractor;
     }
 
