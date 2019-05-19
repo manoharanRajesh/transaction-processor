@@ -30,5 +30,6 @@ public class TransactionDetails {
     private BigDecimal mutation;
     private boolean duplicate;
     private boolean wrongEndBalance;
+    private String errorDescription;
 
 }
