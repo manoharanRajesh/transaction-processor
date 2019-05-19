@@ -32,7 +32,6 @@ import org.springframework.batch.item.xml.StaxEventItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
@@ -59,6 +58,7 @@ public class JobConfig {
         resourceItemReader.setDelegate(csvFileReader());
         return resourceItemReader;
     }
+
     @Bean
     public MultiResourceItemReader<TransactionDetails> xmlMultiResourceItemReader() {
         MultiResourceItemReader<TransactionDetails> resourceItemReader = new MultiResourceItemReader<TransactionDetails>();
@@ -201,7 +201,7 @@ public class JobConfig {
 
     private FieldExtractor<TransactionDetails> createFieldExtractor() {
         BeanWrapperFieldExtractor<TransactionDetails> extractor = new BeanWrapperFieldExtractor<>();
-        extractor.setNames(new String[]{"accountNumber", "referenceId", "description", "startBalance", "endBalance", "mutation","errorDescription"});
+        extractor.setNames(new String[]{"accountNumber", "referenceId", "description", "startBalance", "endBalance", "mutation", "errorDescription"});
         return extractor;
     }
 

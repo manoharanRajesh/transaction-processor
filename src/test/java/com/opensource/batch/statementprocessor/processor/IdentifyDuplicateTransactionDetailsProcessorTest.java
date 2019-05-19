@@ -39,7 +39,7 @@ class IdentifyDuplicateTransactionDetailsProcessorTest {
 
         lst.forEach(
                 t -> {
-                    assertFalse(t.isDuplicate(), t.getReferenceId()+ " duplication indicator have to be false.");
+                    assertFalse(t.isDuplicate(), t.getReferenceId() + " duplication indicator have to be false.");
                 }
         );
     }

@@ -13,11 +13,15 @@ public class ErrorReportWriter extends FlatFileItemWriter<TransactionDetails> {
     public String doWrite(final List<? extends TransactionDetails> items) {
         return items.stream()
                 .filter(item -> item.isDuplicate() || item.isWrongEndBalance())
-                .map(item ->{
+                .map(item -> {
                     StringBuilder errorDescription = new StringBuilder();
-                    errorDescription.append(StringUtils.defaultIfEmpty(item.getErrorDescription(),""));
-                    if(item.isDuplicate()) { errorDescription.append("Duplication Transaction.");}
-                    if(item.isWrongEndBalance()) { errorDescription.append("Wrong end balance.");}
+                    errorDescription.append(StringUtils.defaultIfEmpty(item.getErrorDescription(), ""));
+                    if (item.isDuplicate()) {
+                        errorDescription.append("Duplication Transaction.");
+                    }
+                    if (item.isWrongEndBalance()) {
+                        errorDescription.append("Wrong end balance.");
+                    }
                     item.setErrorDescription(errorDescription.toString());
                     return item;
                 })
