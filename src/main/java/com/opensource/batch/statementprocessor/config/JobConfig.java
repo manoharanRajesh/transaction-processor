@@ -50,6 +50,50 @@ public class JobConfig {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
 
+    @Bean
+    public Job readCSVFileJob(final Step step1) {
+        return jobBuilderFactory.get("readCSVFileJob")
+                .incrementer(new RunIdIncrementer())
+                .listener(jobExecutionListenerSupport())
+                .flow(step1)
+                .end()
+                .build();
+    }
+
+    @Bean
+    public Job readXMLFileJob(final Step step2) {
+        return jobBuilderFactory.get("readXMLFileJob")
+                .incrementer(new RunIdIncrementer())
+                .listener(jobExecutionListenerSupport())
+                .flow(step2)
+                .end()
+                .build();
+    }
+
+    @Bean
+    public Step step1() {
+        return stepBuilderFactory.get("step1")
+                .<TransactionDetails, TransactionDetails>chunk(10)
+                .reader(csvMultiResourceItemReader())
+                .faultTolerant()
+                .skipPolicy(fileVerificationSkipper())
+                .processor(processor())
+                .writer(writer())
+                .build();
+    }
+
+    @Bean
+    public Step step2() {
+        return stepBuilderFactory.get("step2")
+                .<TransactionDetails, TransactionDetails>chunk(10)
+                .reader(xmlMultiResourceItemReader())
+                .faultTolerant()
+                .skipPolicy(fileVerificationSkipper())
+                .processor(processor())
+                .writer(writer())
+
+                .build();
+    }
 
     @Bean
     public MultiResourceItemReader<TransactionDetails> csvMultiResourceItemReader() {
@@ -80,7 +124,6 @@ public class JobConfig {
                 .build();
     }
 
-
     @Bean
     public StaxEventItemReader<TransactionDetails> xmlFileItemReader() {
         StaxEventItemReader<TransactionDetails> xmlFileReader = new StaxEventItemReader<>();
@@ -92,7 +135,6 @@ public class JobConfig {
         xmlFileReader.setUnmarshaller(studentMarshaller);
         return xmlFileReader;
     }
-
 
     @Bean
     public ItemProcessor<TransactionDetails, ? extends TransactionDetails> processor() {
@@ -140,55 +182,9 @@ public class JobConfig {
         return errorReportWriter;
     }
 
-
-    @Bean
-    public Job readCSVFileJob(final Step step1) {
-        return jobBuilderFactory.get("readCSVFileJob")
-                .incrementer(new RunIdIncrementer())
-                .listener(jobExecutionListenerSupport())
-                .flow(step1)
-                .end()
-                .build();
-    }
-
-    @Bean
-    public Job readXMLFileJob(final Step step2) {
-        return jobBuilderFactory.get("readXMLFileJob")
-                .incrementer(new RunIdIncrementer())
-                .listener(jobExecutionListenerSupport())
-                .flow(step2)
-                .end()
-                .build();
-    }
-
     @Bean
     public SkipPolicy fileVerificationSkipper() {
         return new TransactionDetailSkipper();
-    }
-
-    @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
-                .<TransactionDetails, TransactionDetails>chunk(10)
-                .reader(csvMultiResourceItemReader())
-                .faultTolerant()
-                .skipPolicy(fileVerificationSkipper())
-                .processor(processor())
-                .writer(writer())
-                .build();
-    }
-
-    @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
-                .<TransactionDetails, TransactionDetails>chunk(10)
-                .reader(xmlMultiResourceItemReader())
-                .faultTolerant()
-                .skipPolicy(fileVerificationSkipper())
-                .processor(processor())
-                .writer(writer())
-
-                .build();
     }
 
     private LineAggregator<TransactionDetails> createLineAggregator() {

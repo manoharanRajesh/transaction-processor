@@ -17,10 +17,10 @@ public class FileConfig {
 
     @Value("${report.error.transaction.detail.file:reports/errorTransactionReport.csv}")
     private String errorTransactionReportFile;
+
     @Value("${report.valid.transaction.detail.file:reports/validTransactionReport.csv}")
     private String validTransactionReportFile;
+
     @Value("${report.valid.transaction.detail.file:reports/validTransactionReport.csv}")
     private String archiveReportFolder;
-
-
 }
