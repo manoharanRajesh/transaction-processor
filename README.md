@@ -2,6 +2,9 @@
 
 Spring batch for processing user transaction in daily basis and in the end output is generated in csv form.
 
+
+![](BatchOverview.png)
+
 ## Input 
 Two types of input format are possible. 
 * CSV files
